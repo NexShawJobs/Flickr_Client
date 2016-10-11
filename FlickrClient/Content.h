@@ -23,6 +23,6 @@
 @property (nonatomic, retain)NSMutableArray *comments;
 
 
--(void)buildImageUrl;
+-(void)buildImageUrlFrom:(Content *)content;
 
 @end

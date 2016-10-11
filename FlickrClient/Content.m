@@ -11,10 +11,10 @@
 @synthesize urlString, img, farm, iD, ownerID, secret, server, title;
 @synthesize ownerName, comments;
 
--(void)buildImageUrl
+-(void)buildImageUrlFrom:(Content *)content
 {
-    NSString *fileName = [[[iD stringByAppendingString:@"_"] stringByAppendingString:secret] stringByAppendingString:@"_q.jpg"];
-    urlString = [[[[[[@"https://" stringByAppendingString:farm] stringByAppendingString:@"."] stringByAppendingString:@"staticflickr.com/"] stringByAppendingString:server] stringByAppendingString:@"/"] stringByAppendingString:fileName];
+    NSString *fileName = [[[content.iD stringByAppendingString:@"_"] stringByAppendingString:content.secret] stringByAppendingString:@"_q.jpg"];
+    urlString = [[[[[[@"https://" stringByAppendingString:content.farm] stringByAppendingString:@"."] stringByAppendingString:@"staticflickr.com/"] stringByAppendingString:content.server] stringByAppendingString:@"/"] stringByAppendingString:fileName];
 }
 
 @end

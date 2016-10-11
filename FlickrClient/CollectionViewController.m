@@ -72,7 +72,7 @@
             cont.server = [NSString stringWithFormat:@"%@", [photo objectForKey:@"server"]];
             cont.title = [NSString stringWithFormat:@"%@", [photo objectForKey:@"title"]];
             cont.comments = [[NSMutableArray alloc]init];
-            [cont buildImageUrl];
+            [cont buildImageUrlFrom:cont];
             [contts addObject:cont];
             
             NSMutableURLRequest *request2 = [[NSMutableURLRequest alloc] init];
@@ -101,8 +101,6 @@
                                                                {
                                                                    ct.img = img;
                                                                    ctTmp = ct;
-                                                                   if (![flickrRequest isRunning]) {
-                                                                   }
                                                                    break;
                                                                }
                                                            }
@@ -111,7 +109,6 @@
                                                    if(error2)
                                                    {
                                                        Content *ct = [Content new];
-                                                       ct.img = [UIImage imageNamed:@"noimg.jpg"];
                                                        ct.title = @"No Image Found";
                                                    }
                                                }];
