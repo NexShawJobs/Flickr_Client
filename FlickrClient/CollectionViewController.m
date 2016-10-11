@@ -5,20 +5,19 @@
 //  Created by nsn on 10/5/16.
 //  Copyright © 2016 nex sn. All rights reserved.
 //
-
 #import "CollectionViewController.h"
 #import "Constants.h"
 #import "CustomCell.h"
 #import "Content.h"
 #import "CustomReusableView.h"
-#import "ObjectiveFlickr.h"
+//#import "ObjectiveFlickr.h"
 #import "DetailViewController.h"
 
-@interface CollectionViewController() <OFFlickrAPIRequestDelegate>
-{
-    OFFlickrAPIContext *flickrContext;
-    OFFlickrAPIRequest *flickrRequest;
-}
+@interface CollectionViewController() //<OFFlickrAPIRequestDelegate>
+//{
+//    OFFlickrAPIContext *flickrContext;
+//    OFFlickrAPIRequest *flickrRequest;
+//}
 @property (nonatomic, retain) NSMutableArray *contts;
 @end
 
@@ -54,8 +53,7 @@
 }
 
 #pragma mark -
-#pragma OFFlickrAPIRequestDelegate
-
+#pragma mark OFFlickrAPIRequestDelegate
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
     NSDictionary *photos = [inResponseDictionary objectForKey:@"photos"];
@@ -127,7 +125,6 @@
             if([ct.ownerID isEqualToString:[person objectForKey:@"id"]])
             {
                 ct.ownerName = [[person objectForKey:@"username"] objectForKey:@"_text"];
-
                 break;
             }
         }
@@ -144,33 +141,27 @@
                 }
             }
         }
-
-
     }
 }
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
-    
     UIAlertController *alertController = [UIAlertController
                                           alertControllerWithTitle:@"Network Issue"
                                           message:@"It looks like you don’t have an Internet Connection"
                                           preferredStyle:UIAlertControllerStyleAlert];
-    
     UIAlertAction *okAction = [UIAlertAction
                                actionWithTitle:NSLocalizedString(@"OK", @"OK action")
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction *action)
                                {
                                }];
-    
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-#pragma mark --
-#pragma uicollectionviewdatasource
-
+#pragma mark -
+#pragma mark Uicollectionviewdatasource
 //required
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -181,17 +172,13 @@
 
 //required
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-
 {
     static NSString *identifier = @"Cell";
-    
-    
     CustomCell *cell = [collectionV dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     if (contts.count > indexPath.row)
     {
         cell.cellImageView.image = ((Content *)[contts objectAtIndex:indexPath.row]).img;
     }
-    
     return cell;
 }
 
@@ -200,12 +187,11 @@
     return 1;
 }
 
-#pragma mark --
-#pragma UICollectionViewDelegate
+#pragma mark -
+#pragma mark UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
     NSString * storyboardName = @"Main";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
     DetailViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
@@ -216,9 +202,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
     vc.content = [contts objectAtIndex:indexPath.row];
     [self showViewController:vc sender:nil];
 }
-
-
-
 
 -(UICollectionReusableView *) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     
@@ -232,6 +215,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
     return nil;
 }
 
+#pragma mark -
 -(void)getOwnerNameForID:(NSString *)ownderID
 {
     if (![flickrRequest isRunning])

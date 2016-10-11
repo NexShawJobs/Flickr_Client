@@ -5,7 +5,6 @@
 //  Created by nsn on 10/7/16.
 //  Copyright © 2016 nex sn. All rights reserved.
 //
-
 #import "DetailViewController.h"
 #import "Constants.h"
 #import "ObjectiveFlickr.h"
@@ -58,7 +57,6 @@
             NSString *comment = [c objectForKey:@"_text"];
             
             text = [[[[[text stringByAppendingString:@"\n"] stringByAppendingString:authorname] stringByAppendingString:@"\n"] stringByAppendingString:comment] stringByAppendingString:@"\n\n"];;
-
         }
         
         commentLabel = [[UILabel alloc]initWithFrame:commentScrollView.frame];
@@ -75,11 +73,9 @@
         commentScrollView.contentSize = rect.size;
         commentLabel.text = text;
         [commentScrollView addSubview:commentLabel];
-
     }
-    
-    
 }
+
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
     UIAlertController *alertController = [UIAlertController
@@ -97,7 +93,6 @@
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
-
 
 -(void)getPhotoCommentsForPhtoID:(NSString *)phtoID
 {

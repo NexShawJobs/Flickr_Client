@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ObjectiveFlickr.h"
 
-@interface CollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
-
+@interface CollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, OFFlickrAPIRequestDelegate>
+{
+    OFFlickrAPIContext *flickrContext;
+    OFFlickrAPIRequest *flickrRequest;
+}
 @property (nonatomic, retain)NSMutableArray *txts;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionV;
 
