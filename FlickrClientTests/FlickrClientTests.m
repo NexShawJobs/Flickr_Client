@@ -90,6 +90,13 @@
                                                        NSInteger statusCode = [(NSHTTPURLResponse *) response2 statusCode];
                                                        XCTAssertEqual(statusCode, 200);
                                                    }
+                                                   if(data2 != nil)
+                                                   {
+                                                       UIImage *img =[UIImage imageWithData:data2];
+                                                       XCTAssertEqual(150, img.size.height);
+                                                       XCTAssertEqual(150, img.size.width);
+                                                   }
+                                                   XCTAssertTrue(error2 == nil);
                                                }];
             [dataTask2 resume];
         }
