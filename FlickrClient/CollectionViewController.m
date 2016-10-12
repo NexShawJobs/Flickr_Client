@@ -43,7 +43,7 @@
     [flickrRequest setDelegate:self];
     
     if (![flickrRequest isRunning]) {
-    [flickrRequest callAPIMethodWithGET:@"flickr.interestingness.getList" arguments:[NSDictionary dictionaryWithObjectsAndKeys:@"10", @"per_page", nil]];
+    [flickrRequest callAPIMethodWithGET:@"flickr.interestingness.getList" arguments:[NSDictionary dictionaryWithObjectsAndKeys:@"100", @"per_page", nil]];
     }
 }
 
