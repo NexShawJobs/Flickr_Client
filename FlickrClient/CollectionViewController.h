@@ -17,4 +17,6 @@
 @property (nonatomic, retain)NSMutableArray *txts;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionV;
 
+-(CGSize)imageSizeForImage:(UIImage *)image;
+
 @end

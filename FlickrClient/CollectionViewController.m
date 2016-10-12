@@ -10,14 +10,9 @@
 #import "CustomCell.h"
 #import "Content.h"
 #import "CustomReusableView.h"
-//#import "ObjectiveFlickr.h"
 #import "DetailViewController.h"
+@interface CollectionViewController()
 
-@interface CollectionViewController() //<OFFlickrAPIRequestDelegate>
-//{
-//    OFFlickrAPIContext *flickrContext;
-//    OFFlickrAPIRequest *flickrRequest;
-//}
 @property (nonatomic, retain) NSMutableArray *contts;
 @end
 
@@ -48,7 +43,7 @@
     [flickrRequest setDelegate:self];
     
     if (![flickrRequest isRunning]) {
-    [flickrRequest callAPIMethodWithGET:@"flickr.interestingness.getList" arguments:[NSDictionary dictionaryWithObjectsAndKeys:@"100", @"per_page", nil]];
+    [flickrRequest callAPIMethodWithGET:@"flickr.interestingness.getList" arguments:[NSDictionary dictionaryWithObjectsAndKeys:@"10", @"per_page", nil]];
     }
 }
 
@@ -84,6 +79,8 @@
             NSURLSessionDataTask *dataTask2 = [session2 dataTaskWithRequest:request2
                                                           completionHandler:^(NSData *data2, NSURLResponse *response2, NSError *error2)
                                                {
+                                                   //XCTAssertTrue(error2 == nil);
+
                                                    if (data2 != nil && error2 == nil)
                                                    {
                                                        UIImage *img =[UIImage imageWithData:data2];
@@ -219,5 +216,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
     {
         [flickrRequest callAPIMethodWithGET:@"flickr.people.getInfo" arguments:[NSDictionary dictionaryWithObjectsAndKeys:ownderID,@"user_id", nil]];
     }
+}
+
+-(CGSize)imageSizeForImage:(UIImage *)image
+{
+    return image.size;
 }
 @end
