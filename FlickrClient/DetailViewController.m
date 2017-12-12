@@ -18,10 +18,12 @@
     __weak IBOutlet UIScrollView *commentScrollView;
 }
 @property (nonatomic, retain)UILabel *commentLabel;
+@property (nonatomic, retain)UIWebView *commentWebView;
+
 @end
 
 @implementation DetailViewController
-@synthesize content, commentLabel;
+@synthesize content, commentLabel, commentWebView;
 
 -(void)viewDidLoad
 {
@@ -31,6 +33,10 @@
     [flickrRequest setDelegate:self];
     ownerNameLabel.textAlignment = NSTextAlignmentCenter;
     ownerNameLabel.numberOfLines = 2;
+    ownerNameLabel.textColor = [UIColor whiteColor];
+    
+    commentScrollView.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor blackColor];
 }
 
 - (IBAction)back:(id)sender {
@@ -72,7 +78,15 @@
         commentLabel.frame = rect;
         commentScrollView.contentSize = rect.size;
         commentLabel.text = text;
+        commentLabel.textColor = [UIColor whiteColor];
+        commentLabel.backgroundColor = [UIColor blackColor];
         [commentScrollView addSubview:commentLabel];
+        
+        
+        commentWebView = [[UIWebView alloc]initWithFrame:commentScrollView.frame];
+
+        
+        
     }
 }
 

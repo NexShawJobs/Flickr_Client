@@ -20,7 +20,7 @@
 @synthesize contts;
 @synthesize txts;
 @synthesize collectionV;
-
+int pageNo = 1;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,12 +38,13 @@
     collectionV.delegate = self;
     collectionV.dataSource = self;
     
+
     flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey:API_KEY sharedSecret:SHARED_SECRET];
     flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:flickrContext];
     [flickrRequest setDelegate:self];
     
     if (![flickrRequest isRunning]) {
-    [flickrRequest callAPIMethodWithGET:@"flickr.interestingness.getList" arguments:[NSDictionary dictionaryWithObjectsAndKeys:@"100", @"per_page", nil]];
+    [flickrRequest callAPIMethodWithGET:@"flickr.interestingness.getList" arguments:[NSDictionary dictionaryWithObjectsAndKeys:@"200", @"per_page", nil]];
     }
 }
 
@@ -209,6 +210,18 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
     return nil;
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+{
+
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (![flickrRequest isRunning] && pageNo <= 10) {
+        pageNo ++;
+        //[flickrRequest callAPIMethodWithGET:@"flickr.interestingness.getList" arguments:[NSDictionary dictionaryWithObjectsAndKeys:@"21", @"per_page", [NSString stringWithFormat:@"%d", pageNo], @"page",nil]];
+    }
+}
 #pragma mark -
 -(void)getOwnerNameForID:(NSString *)ownderID
 {
@@ -217,6 +230,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
         [flickrRequest callAPIMethodWithGET:@"flickr.people.getInfo" arguments:[NSDictionary dictionaryWithObjectsAndKeys:ownderID,@"user_id", nil]];
     }
 }
+
 
 -(CGSize)imageSizeForImage:(UIImage *)image
 {
